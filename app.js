@@ -7,16 +7,15 @@ var express = require('express');
 var routes = require('./routes');
 var http = require('http');
 var path = require('path');
-var swig = require('swig');
+var nunjucks = require('nunjucks');
 
 var app = express();
 
-// Swig Setup
-swig.setDefaults({ cache: false });
-app.engine('html', swig.renderFile);
+// Nunjucks Setup
+nunjucks.configure('views', { noCache: true });
+app.engine('html', nunjucks.render);
 app.set('view engine', 'html');
-app.set('views', __dirname + '/views');
-// Swig will cache templates for you, but you can disable
+// Nunjucks will cache templates for you, but you can disable
 // that and use Express's caching instead, if you like:
 app.set('view cache', false);
 
